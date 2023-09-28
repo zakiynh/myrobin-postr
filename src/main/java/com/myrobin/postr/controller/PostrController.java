@@ -5,10 +5,7 @@ import com.myrobin.postr.service.PostrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +22,7 @@ public class PostrController {
         // This controller only use for testing. will be deleted
         Map<String, Object> response = new HashMap<>();
         response.put("success", true);
-        response.put("data", "POSTR app test");
+        response.put("data", "POSTR app RUNNING");
         return ResponseEntity.ok(response);
     }
 
@@ -52,4 +49,18 @@ public class PostrController {
         return ResponseEntity.ok(response);
     }
 
+    @PostMapping(path = "/posts/{postId}/comments")
+    public ResponseEntity<Map<String, Object>> createComment(@RequestBody Map<String, String> requestBody,
+                                                             @PathVariable String postId) {
+        //add validation string length
+        String commentId = postrService.saveNewComment(requestBody.get("comment"), postId);
+
+        Map<String, String> responseData = new HashMap<>();
+        responseData.put("commentId", commentId);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", responseData);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
 }
