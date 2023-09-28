@@ -10,7 +10,7 @@ import lombok.Setter;
 @Table(name = "comment", schema = "public")
 public class Comment extends Base {
 
-    @Column(name = "comment")
+    @Column(name = "comment", length = 100)
     private String comment;
 
     @ManyToOne

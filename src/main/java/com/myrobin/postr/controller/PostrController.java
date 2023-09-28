@@ -28,7 +28,11 @@ public class PostrController {
 
     @PostMapping(path = "/posts")
     public ResponseEntity<Map<String, Object>> createPost(@RequestBody Map<String, String> requestBody) {
-        //add validation string length
+        if (!isContentValid(requestBody.get("post"))) {
+            Map<String, Object> errResponse = new HashMap<>();
+            errResponse.put("error", "Post must be between 1 and 100 characters");
+            return ResponseEntity.badRequest().body(errResponse);
+        }
         String postId = postrService.saveNewPost(requestBody.get("post"));
 
         Map<String, String> responseData = new HashMap<>();
@@ -52,7 +56,11 @@ public class PostrController {
     @PostMapping(path = "/posts/{postId}/comments")
     public ResponseEntity<Map<String, Object>> createComment(@RequestBody Map<String, String> requestBody,
                                                              @PathVariable String postId) {
-        //add validation string length
+        if (!isContentValid(requestBody.get("comment"))) {
+            Map<String, Object> errResponse = new HashMap<>();
+            errResponse.put("error", "Comment must be between 1 and 100 characters");
+            return ResponseEntity.badRequest().body(errResponse);
+        }
         String commentId = postrService.saveNewComment(requestBody.get("comment"), postId);
 
         Map<String, String> responseData = new HashMap<>();
@@ -62,5 +70,9 @@ public class PostrController {
         response.put("success", true);
         response.put("data", responseData);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    private boolean isContentValid(String content) {
+        return !content.isEmpty() && content.length() <= 100;
     }
 }

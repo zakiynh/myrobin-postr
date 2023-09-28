@@ -12,7 +12,7 @@ import lombok.Setter;
 @Table(name = "post", schema = "public")
 public class Post extends Base {
 
-    @Column(name = "post")
+    @Column(name = "post", length = 100)
     private String post;
 
     @Column(name = "username", unique = true)
