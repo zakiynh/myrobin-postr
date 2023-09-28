@@ -53,6 +53,15 @@ public class PostrController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping(path = "/posts/users")
+    public ResponseEntity<Map<String, Object>> getAllUsers(@RequestParam(name = "limit") String limit) {
+        List<String> users = postrService.getAllUsers(limit);
+        Map<String, Object> response = new HashMap<>();
+        response.put("success", true);
+        response.put("data", users);
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping(path = "/posts/{postId}/comments")
     public ResponseEntity<Map<String, Object>> createComment(@RequestBody Map<String, String> requestBody,
                                                              @PathVariable String postId) {

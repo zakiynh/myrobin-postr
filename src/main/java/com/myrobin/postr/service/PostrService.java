@@ -39,6 +39,10 @@ public class PostrService {
         }).collect(Collectors.toList());
     }
 
+    public List<String> getAllUsers(String limit) {
+        return postRepository.findAllUsers(limit);
+    }
+
     public String saveNewComment(String comment, String postId) {
         Optional<Post> postOpt = postRepository.findById(postId);
         if (postOpt.isEmpty()) {
