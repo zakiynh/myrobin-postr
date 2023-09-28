@@ -1,6 +1,15 @@
 # PostrServer
 Services related to posr application
 
+# Tech Stack
+Postgres, Spring Boot, Java 17, Docker, Docker Compose
+
+# Libraries
+1. Spring Boot
+2. Spring Data JPA
+3. Spring Web
+4. Lombok
+
 ## Development
 
 ### Requirements
