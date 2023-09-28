@@ -14,4 +14,7 @@ public class Post extends Base {
 
     @Column(name = "post")
     private String post;
+
+    @Column(name = "username", unique = true)
+    private String username;
 }

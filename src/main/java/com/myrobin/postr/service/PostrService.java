@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,6 +25,7 @@ public class PostrService {
     public String saveNewPost(String post) {
         Post newPost = new Post();
         newPost.setPost(post);
+        newPost.setUsername(generateRandomUsername());
         postRepository.save(newPost);
         return newPost.getId();
     }
@@ -47,5 +49,18 @@ public class PostrService {
         newComment.setComment(comment);
         commentRepository.save(newComment);
         return newComment.getId();
+    }
+
+    private String generateRandomUsername() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder username = new StringBuilder();
+
+        Random random = new Random();
+        for (int i = 0; i < 11; i++) {
+            int index = random.nextInt(characters.length());
+            username.append(characters.charAt(index));
+        }
+
+        return username.toString();
     }
 }
