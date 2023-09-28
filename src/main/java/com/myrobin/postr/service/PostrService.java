@@ -35,6 +35,8 @@ public class PostrService {
         return postList.stream().map(post -> {
             PostDto postDto = new PostDto();
             postDto.setPost(post.getPost());
+            List<String> comments = post.getComments().stream().map(Comment::getComment).collect(Collectors.toList());
+            postDto.setComments(comments);
             return postDto;
         }).collect(Collectors.toList());
     }

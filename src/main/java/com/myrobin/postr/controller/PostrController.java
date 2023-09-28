@@ -17,15 +17,6 @@ public class PostrController {
     @Autowired
     private PostrService postrService;
 
-    @GetMapping(path = "/")
-    public ResponseEntity<Map<String, Object>> postrPingTest() {
-        // This controller only use for testing. will be deleted
-        Map<String, Object> response = new HashMap<>();
-        response.put("success", true);
-        response.put("data", "POSTR app RUNNING");
-        return ResponseEntity.ok(response);
-    }
-
     @PostMapping(path = "/posts")
     public ResponseEntity<Map<String, Object>> createPost(@RequestBody Map<String, String> requestBody) {
         if (!isContentValid(requestBody.get("post"))) {
